@@ -1,0 +1,15 @@
+{
+	"name": "Metadata",
+	"version": "1.0",
+	"author": "[https://www.mediawiki.org/wiki/User:Sophivorus Sophivorus]",
+	"description": "Get and set arbitrary page metadata",
+	"license-name": "GPL-3.0-or-later",
+	"type": "other",
+	"AutoloadClasses": {
+		"Metadata": "Metadata.php"
+	},
+	"Hooks": {
+		"LoadExtensionSchemaUpdates": "Metadata::onLoadExtensionSchemaUpdates"
+	},
+	"manifest_version": 1
+}

@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Sophivorus"
+		]
+	},
+	"prop-desc": "Database table and helper functions to get and set page meta data"
+}
