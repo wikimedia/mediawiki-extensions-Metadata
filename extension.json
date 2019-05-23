@@ -1,6 +1,6 @@
 {
 	"name": "Metadata",
-	"version": "1.0",
+	"version": "1.1",
 	"author": "[https://www.mediawiki.org/wiki/User:Sophivorus Sophivorus]",
 	"description": "Get and set arbitrary page metadata",
 	"license-name": "GPL-3.0-or-later",
