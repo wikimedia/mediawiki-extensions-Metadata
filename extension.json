@@ -5,6 +5,11 @@
 	"description": "Get and set arbitrary page metadata",
 	"license-name": "GPL-3.0-or-later",
 	"type": "other",
+	"MessagesDirs": {
+		"Metadata": [
+			"i18n"
+		]
+	},
 	"AutoloadClasses": {
 		"Metadata": "Metadata.php"
 	},
