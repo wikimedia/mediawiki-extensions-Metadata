@@ -4,6 +4,8 @@ class Metadata {
 
 	/**
 	 * Create the database table
+	 *
+	 * @param DatabaseUpdater $updater
 	 */
 	static function onLoadExtensionSchemaUpdates( DatabaseUpdater $updater ) {
 		$updater->addExtensionTable( 'metadata', __DIR__ . '/metadata.sql' );
@@ -11,11 +13,15 @@ class Metadata {
 
 	/**
 	 * Set metadata for the given page
+	 *
+	 * @param int $page
+	 * @param string|string[] $keyOrData
+	 * @param null|string $value
 	 */
 	static function set( int $page, $keyOrData, $value = null ) {
 		if ( is_array( $keyOrData ) ) {
 			$data = $keyOrData;
-		} else if ( is_string( $keyOrData ) ) {
+		} elseif ( is_string( $keyOrData ) ) {
 			$key = $keyOrData;
 			$data = [ $key => $value ];
 		} else {
@@ -44,6 +50,10 @@ class Metadata {
 
 	/**
 	 * Get metadata for the given page and key
+	 *
+	 * @param int $page
+	 * @param null|string $key
+	 * @return string[]
 	 */
 	static function get( int $page, $key = null ) {
 		$dbr = wfGetDB( DB_REPLICA );
