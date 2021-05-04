@@ -28,7 +28,7 @@ class Metadata {
 			return;
 		}
 
-		$dbw = wfGetDB( DB_MASTER );
+		$dbw = wfGetDB( DB_PRIMARY );
 		foreach ( $data as $key => $value ) {
 			$dbw->upsert(
 				'metadata',
