@@ -1,24 +1,28 @@
 {
 	"name": "Metadata",
-	"version": "1.2",
+	"version": "2.0",
 	"author": "[https://www.mediawiki.org/wiki/User:Sophivorus Sophivorus]",
-	"url": "https://www.mediawiki.org/wiki/Extension:MsCatSelect",
+	"url": "https://www.mediawiki.org/wiki/Extension:Metadata",
 	"descriptionmsg": "metadata-desc",
 	"license-name": "GPL-3.0-or-later",
-	"type": "other",
+	"type": "parserhook",
 	"requires": {
-		"MediaWiki": ">= 1.36.0"
+		"MediaWiki": ">= 1.35.0"
 	},
 	"MessagesDirs": {
 		"Metadata": [
 			"i18n"
 		]
 	},
+	"ExtensionMessagesFiles": {
+		"MetadataAlias": "Metadata.alias.php"
+	},
 	"AutoloadClasses": {
 		"Metadata": "Metadata.php"
 	},
 	"Hooks": {
-		"LoadExtensionSchemaUpdates": "Metadata::onLoadExtensionSchemaUpdates"
+		"LoadExtensionSchemaUpdates": "Metadata::onLoadExtensionSchemaUpdates",
+		"ParserFirstCallInit": "Metadata::onParserFirstCallInit"
 	},
-	"manifest_version": 1
+	"manifest_version": 2
 }

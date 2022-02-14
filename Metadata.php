@@ -12,6 +12,15 @@ class Metadata {
 	}
 
 	/**
+	 * Set parser hook
+	 *
+	 * @param Parser $parser
+	 */
+	public static function onParserFirstCallInit( Parser $parser ) {
+		$parser->setFunctionHook( 'Metadata', 'Metadata::onFunctionHook' );
+	}
+
+	/**
 	 * Set metadata for the given page
 	 *
 	 * @param int $page
@@ -68,5 +77,29 @@ class Metadata {
 			$data[ $row->md_key ] = $row->md_value;
 		}
 		return $data;
+	}
+
+	/**
+	 * Parser function hook
+	 *
+	 * @param Parser $parser Parser object
+	 * @param null|string $key Property key
+	 * @param null|string $value Property value
+	 * @return null|string
+	 */
+	public static function onFunctionHook( Parser $parser, $key = null, $value = null ) {
+		if ( !$key ) {
+			return;
+		}
+		$title = $parser->getTitle();
+		$id = $title->getArticleID();
+		if ( !$id ) {
+			return;
+		}
+		if ( $value ) {
+			return self::set( $id, $key, $value );
+		} else {
+			return self::get( $id, $key );
+		}
 	}
 }
