@@ -1,5 +1,7 @@
 <?php
 
+use MediaWiki\MediaWikiServices;
+
 class Metadata {
 
 	/**
@@ -37,7 +39,8 @@ class Metadata {
 			return;
 		}
 
-		$dbw = wfGetDB( DB_PRIMARY );
+		$lb = MediaWikiServices::getInstance()->getDBLoadBalancer();
+		$dbw = $lb->getConnectionRef( DB_MASTER );
 		foreach ( $data as $key => $value ) {
 			$dbw->upsert(
 				'metadata',
@@ -65,7 +68,8 @@ class Metadata {
 	 * @return string[]
 	 */
 	static function get( int $page, $key = null ) {
-		$dbr = wfGetDB( DB_REPLICA );
+		$lb = MediaWikiServices::getInstance()->getDBLoadBalancer();
+		$dbr = $lb->getConnectionRef( DB_REPLICA );
 
 		if ( $key ) {
 			return $dbr->selectField( 'metadata', 'md_value', "md_page = $page AND md_key = '$key'" );
