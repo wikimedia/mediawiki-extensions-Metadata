@@ -5,11 +5,21 @@ use MediaWiki\MediaWikiServices;
 class Metadata {
 
 	/**
+	 * Add the Metadata resource module
+	 *
+	 * @param OutputPage $out
+	 * @param Skin $skin
+	 */
+	public static function onBeforePageDisplay( OutputPage $out, Skin $skin ) {
+		$out->addModules( 'ext.Metadata' );
+	}
+
+	/**
 	 * Create the database table
 	 *
 	 * @param DatabaseUpdater $updater
 	 */
-	static function onLoadExtensionSchemaUpdates( DatabaseUpdater $updater ) {
+	public static function onLoadExtensionSchemaUpdates( DatabaseUpdater $updater ) {
 		$updater->addExtensionTable( 'metadata', __DIR__ . '/metadata.sql' );
 	}
 
@@ -29,14 +39,14 @@ class Metadata {
 	 * @param string|string[] $keyOrData
 	 * @param null|string $value
 	 */
-	static function set( int $page, $keyOrData, $value = null ) {
+	public static function set( int $page, $keyOrData, $value = null ) {
 		if ( is_array( $keyOrData ) ) {
 			$data = $keyOrData;
 		} elseif ( is_string( $keyOrData ) ) {
 			$key = $keyOrData;
 			$data = [ $key => $value ];
 		} else {
-			return;
+			return false;
 		}
 
 		$lb = MediaWikiServices::getInstance()->getDBLoadBalancer();
@@ -58,6 +68,7 @@ class Metadata {
 				]
 			);
 		}
+		return true;
 	}
 
 	/**
@@ -67,7 +78,7 @@ class Metadata {
 	 * @param null|string $key
 	 * @return string[]
 	 */
-	static function get( int $page, $key = null ) {
+	public static function get( int $page, $key = null ) {
 		$lb = MediaWikiServices::getInstance()->getDBLoadBalancer();
 		$dbr = $lb->getConnectionRef( DB_REPLICA );
 
