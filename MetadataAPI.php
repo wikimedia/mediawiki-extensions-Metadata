@@ -9,19 +9,27 @@ use Wikimedia\ParamValidator\ParamValidator;
  */
 class MetadataAPI extends SimpleHandler {
 
+	/**
+	 * @param int $id
+	 * @param string|null $key
+	 * @param string|null $value
+	 * @return bool|string[]
+	 */
 	public function run( $id, $key = null, $value = null ) {
 		$id = strval( $id );
 		if ( $value ) {
-	        return Metadata::set( $id, $key, $value );
+			return Metadata::set( $id, $key, $value );
 		} else {
 			return Metadata::get( $id, $key );
 		}
 	}
 
+	/** @inheritDoc */
 	public function needsWriteAccess() {
 		return false;
 	}
 
+	/** @inheritDoc */
 	public function getParamSettings() {
 		return [
 			'id' => [

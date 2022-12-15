@@ -38,6 +38,7 @@ class Metadata {
 	 * @param int $page
 	 * @param string|string[] $keyOrData
 	 * @param null|string $value
+	 * @return bool
 	 */
 	public static function set( int $page, $keyOrData, $value = null ) {
 		if ( is_array( $keyOrData ) ) {
