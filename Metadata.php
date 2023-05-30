@@ -1,27 +1,6 @@
 <?php
 
-use MediaWiki\MediaWikiServices;
-
 class Metadata {
-
-	/**
-	 * Add the Metadata resource module
-	 *
-	 * @param OutputPage $out
-	 * @param Skin $skin
-	 */
-	public static function onBeforePageDisplay( OutputPage $out, Skin $skin ) {
-		$out->addModules( 'ext.Metadata' );
-	}
-
-	/**
-	 * Create the database table
-	 *
-	 * @param DatabaseUpdater $updater
-	 */
-	public static function onLoadExtensionSchemaUpdates( DatabaseUpdater $updater ) {
-		$updater->addExtensionTable( 'metadata', __DIR__ . '/metadata.sql' );
-	}
 
 	/**
 	 * Set parser hook
@@ -29,93 +8,57 @@ class Metadata {
 	 * @param Parser $parser
 	 */
 	public static function onParserFirstCallInit( Parser $parser ) {
-		$parser->setFunctionHook( 'Metadata', 'Metadata::onFunctionHook' );
+		$parser->setFunctionHook( 'Metadata', [ self::class, 'onFunctionHook' ] );
 	}
 
 	/**
-	 * Set metadata for the given page
-	 *
-	 * @param int $page
-	 * @param string|string[] $keyOrData
-	 * @param null|string $value
-	 * @return bool
-	 */
-	public static function set( int $page, $keyOrData, $value = null ) {
-		if ( is_array( $keyOrData ) ) {
-			$data = $keyOrData;
-		} elseif ( is_string( $keyOrData ) ) {
-			$key = $keyOrData;
-			$data = [ $key => $value ];
-		} else {
-			return false;
-		}
-
-		$lb = MediaWikiServices::getInstance()->getDBLoadBalancer();
-		$dbw = $lb->getConnectionRef( DB_MASTER );
-		foreach ( $data as $key => $value ) {
-			$dbw->upsert(
-				'metadata',
-				[
-					'md_page' => $page,
-					'md_key' => $key,
-					'md_value' => $value,
-				],
-				[
-					'md_page',
-					'md_key',
-				],
-				[
-					'md_value' => $value,
-				]
-			);
-		}
-		return true;
-	}
-
-	/**
-	 * Get metadata for the given page and key
-	 *
-	 * @param int $page
-	 * @param null|string $key
-	 * @return string[]
-	 */
-	public static function get( int $page, $key = null ) {
-		$lb = MediaWikiServices::getInstance()->getDBLoadBalancer();
-		$dbr = $lb->getConnectionRef( DB_REPLICA );
-
-		if ( $key ) {
-			return $dbr->selectField( 'metadata', 'md_value', "md_page = $page AND md_key = '$key'" );
-		}
-
-		$data = [];
-		$result = $dbr->select( 'metadata', 'md_key, md_value', "md_page = $page" );
-		foreach ( $result as $row ) {
-			$data[ $row->md_key ] = $row->md_value;
-		}
-		return $data;
-	}
-
-	/**
-	 * Parser function hook
+	 * Parser hook callback
 	 *
 	 * @param Parser $parser Parser object
-	 * @param null|string $key Property key
-	 * @param null|string $value Property value
-	 * @return null|string
 	 */
-	public static function onFunctionHook( Parser $parser, $key = null, $value = null ) {
-		if ( !$key ) {
-			return;
+	public static function onFunctionHook( Parser $parser ) {
+		$arguments = func_get_args();
+		$params = array_slice( $arguments, 1 );
+		$params = self::parseParams( $params );
+		foreach ( $params as $param => $value ) {
+			$parser->getOutput()->setPageProperty( $param, $value );
 		}
-		$title = $parser->getTitle();
-		$id = $title->getArticleID();
-		if ( !$id ) {
-			return;
+	}
+
+	/**
+	 * OutputPageParserOutput callback
+	 *
+	 * @param OutputPage $out
+	 * @param ParserOutput $parserOutput
+	 */
+	public static function onOutputPageParserOutput( OutputPage $out, ParserOutput $parserOutput ) {
+		$props = $parserOutput->getPageProperties();
+		foreach ( $props as $prop => $value ) {
+			$out->addMeta( $prop, $value );
 		}
-		if ( $value ) {
-			return self::set( $id, $key, $value );
-		} else {
-			return self::get( $id, $key );
+	}
+
+	/**
+	 * Helper method to convert an array of values in form [0] => "name=value"
+	 * into a real associative array in form [name] => value
+	 * If no = is provided, true is assumed like this: [name] => true
+	 *
+	 * @param array $params
+	 * @return array
+	 */
+	private static function parseParams( array $params ) {
+		$array = [];
+		foreach ( $params as $param ) {
+			$pair = array_map( 'trim', explode( '=', $param, 2 ) );
+			if ( !$pair[0] ) {
+				continue;
+			}
+			if ( count( $pair ) === 2 ) {
+				$array[ $pair[0] ] = $pair[1];
+			} elseif ( count( $pair ) === 1 ) {
+				$array[ $pair[0] ] = true;
+			}
 		}
+		return $array;
 	}
 }

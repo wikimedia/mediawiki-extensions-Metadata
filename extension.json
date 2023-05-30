@@ -1,7 +1,7 @@
 {
 	"manifest_version": 2,
 	"name": "Metadata",
-	"version": "3.0",
+	"version": "4.0",
 	"author": "[https://www.mediawiki.org/wiki/User:Sophivorus Sophivorus]",
 	"url": "https://www.mediawiki.org/wiki/Extension:Metadata",
 	"descriptionmsg": "metadata-desc",
@@ -16,7 +16,7 @@
 		]
 	},
 	"ExtensionMessagesFiles": {
-		"MetadataAlias": "Metadata.alias.php"
+		"MetadataMagic": "Metadata.i18n.php"
 	},
 	"AutoloadClasses": {
 		"Metadata": "Metadata.php",
@@ -24,33 +24,13 @@
 	},
 	"RestRoutes": [
 		{
-			"path": "/metadata/v0/{id}",
-			"method": "GET",
-			"class": "MetadataAPI"
-		},
-		{
-			"path": "/metadata/v0/{id}/{key}",
-			"method": "GET",
-			"class": "MetadataAPI"
-		},
-		{
-			"path": "/metadata/v0/{id}/{key}/{value}",
+			"path": "/v1/page/{title}/props",
 			"method": "GET",
 			"class": "MetadataAPI"
 		}
 	],
 	"Hooks": {
-		"LoadExtensionSchemaUpdates": "Metadata::onLoadExtensionSchemaUpdates",
 		"ParserFirstCallInit": "Metadata::onParserFirstCallInit",
-		"BeforePageDisplay": "Metadata::onBeforePageDisplay"
-	},
-	"ResourceModules": {
-		"ext.Metadata": {
-			"scripts": "Metadata.js"
-		}
-	},
-	"ResourceFileModulePaths": {
-		"localBasePath": "",
-		"remoteExtPath": "Metadata"
+		"OutputPageParserOutput": "Metadata::onOutputPageParserOutput"
 	}
 }

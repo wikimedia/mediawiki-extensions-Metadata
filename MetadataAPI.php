@@ -1,27 +1,34 @@
 <?php
 
+use MediaWiki\MediaWikiServices;
 use MediaWiki\Rest\SimpleHandler;
 use Wikimedia\ParamValidator\ParamValidator;
 
 /**
  * Class to get and set metadata for a page
- * POST /metadata/v0/{id}/{key}/{value}
+ * GET /v1/page/{title}/props
  */
 class MetadataAPI extends SimpleHandler {
 
 	/**
-	 * @param int $id
-	 * @param string|null $key
-	 * @param string|null $value
-	 * @return bool|string[]
+	 * Get the page properties from the database
+	 * and return them as an associative array
+	 * that will be converted into JSON
+	 *
+	 * @param string $title Title of the page
+	 * @return array Page properties
 	 */
-	public function run( $id, $key = null, $value = null ) {
-		$id = strval( $id );
-		if ( $value ) {
-			return Metadata::set( $id, $key, $value );
-		} else {
-			return Metadata::get( $id, $key );
+	public function run( $title ) {
+		$Title = Title::newFromText( $title );
+		$id = $Title->getArticleID();
+		$lb = MediaWikiServices::getInstance()->getDBLoadBalancer();
+		$dbr = $lb->getConnectionRef( DB_REPLICA );
+		$data = [];
+		$result = $dbr->select( 'page_props', 'pp_propname, pp_value', "pp_page = $id" );
+		foreach ( $result as $row ) {
+			$data[ $row->pp_propname ] = $row->pp_value;
 		}
+		return $data;
 	}
 
 	/** @inheritDoc */
@@ -32,20 +39,10 @@ class MetadataAPI extends SimpleHandler {
 	/** @inheritDoc */
 	public function getParamSettings() {
 		return [
-			'id' => [
+			'title' => [
 				self::PARAM_SOURCE => 'path',
 				ParamValidator::PARAM_TYPE => 'string',
 				ParamValidator::PARAM_REQUIRED => true,
-			],
-			'key' => [
-				self::PARAM_SOURCE => 'path',
-				ParamValidator::PARAM_TYPE => 'string',
-				ParamValidator::PARAM_REQUIRED => false,
-			],
-			'value' => [
-				self::PARAM_SOURCE => 'path',
-				ParamValidator::PARAM_TYPE => 'string',
-				ParamValidator::PARAM_REQUIRED => false,
 			]
 		];
 	}
