@@ -8,7 +8,7 @@ class Metadata {
 	 * @param Parser $parser
 	 */
 	public static function onParserFirstCallInit( Parser $parser ) {
-		$parser->setFunctionHook( 'Metadata', [ self::class, 'onFunctionHook' ] );
+		$parser->setFunctionHook( 'metadata', [ self::class, 'onFunctionHook' ] );
 	}
 
 	/**
