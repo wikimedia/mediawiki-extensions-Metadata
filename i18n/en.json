@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Sophivorus"
+		]
+	},
+	"metadata-desc": "Adds #metadata parser function to set page properties, and expose them via <meta> tags and a REST API endpoint"
+}

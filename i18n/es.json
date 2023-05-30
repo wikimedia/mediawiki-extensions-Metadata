@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Sophivorus"
+		]
+	},
+	"metadata-desc": "Agrega la función #metadata para establecer propiedades a las páginas, y las expone mediante etiquetas <meta> y la REST API"
+}
