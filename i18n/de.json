@@ -1,0 +1,6 @@
+{
+	"@metadata": {
+		"authors": []
+	},
+	"metadata-desc": "Fügt die #metadata-Parser-Funktion hinzu, um Seiteneigenschaften festzulegen und sie über <meta>-Tags und einen REST-API-Endpunkt offenzulegen"
+}

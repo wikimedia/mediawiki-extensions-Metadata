@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Eleassar"
+		]
+	},
+	"metadata-desc": "Doda funkcijo razčlenjevalnika #metadata za nastavitev lastnosti strani in njihovo izpostavljanje prek značk <meta> in končne točke REST API"
+}

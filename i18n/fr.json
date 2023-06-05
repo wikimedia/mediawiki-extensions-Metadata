@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Verdy p"
+		]
+	},
+	"metadata-desc": "Ajoute la fonction d’analyseur « #metadata » pour définir les propriétés de la page et les exposer via des balises <meta> et un point de terminaison d’API REST"
+}
