@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"McDutchie"
+		]
+	},
+	"metadata-desc": "Adde un function de analysator syntactic #metadata pro definir proprietates de paginas, e exponer los usante etiquettas <meta> e un puncto de termination del API REST"
+}

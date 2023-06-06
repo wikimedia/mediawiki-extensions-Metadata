@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Sabelöga"
+		]
+	},
+	"metadata-desc": "Lägger till parserfunktionen #metadata till angivna sidegenskaper, och exponerar dem via <meta>-taggar och en REST-API-slutpunkt"
+}
