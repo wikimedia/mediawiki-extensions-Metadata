@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Amire80"
+		]
+	},
+	"metadata-desc": "הוספת פונקציית המפענח #metadata כדי להגדיר מאפייני דף ולחשוף אותם באמצעות תגי <meta> ונקודת קצה של REST API"
+}
