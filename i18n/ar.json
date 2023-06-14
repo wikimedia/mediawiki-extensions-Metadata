@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Asma"
+		]
+	},
+	"metadata-desc": "يضيف #metadata parser لتعيين خصائص الصفحة ، وعرضها عبر علامات <meta> ونقطة نهاية REST API"
+}
