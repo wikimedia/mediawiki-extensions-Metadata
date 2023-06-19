@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Spyridon Eftychios Kokotos"
+		]
+	},
+	"metadata-desc": "Προσθήκη της συνάρτησης ανάλυσης #metadata για να ορίζετε ιδιότητες σελίδας και να τις αποκαλύπτετε μέσω ετικετών <meta> και ενός σημείου πρόσβασης REST API."
+}
