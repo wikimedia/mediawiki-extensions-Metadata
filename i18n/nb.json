@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Jon Harald Søby"
+		]
+	},
+	"metadata-desc": "Legger til parserfunksjonen #metadata som kan sette sideegenskaper og eksponere dem via <meta>-tagger og et REST-API-endepunkt"
+}
