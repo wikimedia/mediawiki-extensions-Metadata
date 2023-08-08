@@ -21,7 +21,9 @@ class Metadata {
 		$params = array_slice( $arguments, 1 );
 		$params = self::parseParams( $params );
 		foreach ( $params as $param => $value ) {
-			$parser->getOutput()->setPageProperty( $param, $value );
+			if ( $value ) {
+				$parser->getOutput()->setPageProperty( $param, $value );
+			}
 		}
 	}
 
