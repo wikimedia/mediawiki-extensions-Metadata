@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"McDutchie"
+		]
+	},
+	"metadata-desc": "Voegt de parserfunctie #metadata toe om pagina-eigenschappen in te stellen en uitleesbaar te maken via <meta>-tags en een REST API-eindpunt"
+}
