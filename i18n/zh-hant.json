@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Kly"
+		]
+	},
+	"metadata-desc": "新增 #metadata 解析器函式來設定頁面屬性，並公開 <meta> 標籤和 REST API 端點"
+}
