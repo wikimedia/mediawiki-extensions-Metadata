@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Hamilton Abreu"
+		]
+	},
+	"metadata-desc": "Adiciona a função do analisador sintático #metadata para definir propriedades da página e expô-las via etiquetas <meta> e um ponto de terminação da API REST"
+}
