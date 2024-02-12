@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Joetaras"
+		]
+	},
+	"metadata-desc": "Aggiunge 'a funzione analizzatrice #metadata pe 'mbostà le probbietà d'a pàgene e esporle cu 'u tag <meta> e 'n u endpoint API REST"
+}
