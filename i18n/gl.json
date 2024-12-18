@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Toliño"
+		]
+	},
+	"metadata-desc": "Engade a función analizadora #metadata para establecer as propiedades da páxina e expoñelas mediante as etiquetas <meta> e un extremo da API REST"
+}
