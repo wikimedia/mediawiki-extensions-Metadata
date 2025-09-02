@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"GuoPC"
+		]
+	},
+	"metadata-desc": "添加#metadata解析器函数来设置页面属性，并通过<meta>标签和REST API端点公开"
+}
