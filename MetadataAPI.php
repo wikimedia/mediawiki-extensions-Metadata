@@ -23,7 +23,7 @@ class MetadataAPI extends SimpleHandler {
 		$Title = Title::newFromText( $title );
 		$id = $Title->getArticleID();
 		$lb = MediaWikiServices::getInstance()->getDBLoadBalancer();
-		$dbr = $lb->getConnectionRef( DB_REPLICA );
+		$dbr = $lb->getConnection( DB_REPLICA );
 		$data = [];
 		$result = $dbr->select( 'page_props', 'pp_propname, pp_value', "pp_page = $id" );
 		foreach ( $result as $row ) {
