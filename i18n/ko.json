@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Tensama0415"
+		]
+	},
+	"metadata-desc": "문서 속성을 설정하기 위해 #metadata 파서 함수를 추가하고 <meta/> 태그와 REST API 엔드포인트를 통해 노출합니다"
+}
