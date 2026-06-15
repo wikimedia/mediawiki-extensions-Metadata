@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Wizzard"
+		]
+	},
+	"metadata-desc": "Pridáva funkciu syntaktického analyzátora #metadata na nastavenie vlastností stránky a ich sprístupnenie cez značky <meta> a koncový bod REST API"
+}
